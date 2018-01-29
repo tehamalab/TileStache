@@ -90,8 +90,6 @@ class ImageProvider:
         self.layer = layer
         self.mapnik = None
 
-        engine = mapnik.FontEngine.instance()
-
         if fonts:
             fontshref = urljoin(layer.config.dirpath, fonts)
             scheme, h, path, q, p, f = urlparse(fontshref)
@@ -100,7 +98,7 @@ class ImageProvider:
                 raise Exception('Fonts from "%s" can\'t be used by Mapnik' % fontshref)
 
             for font in glob(path.rstrip('/') + '/*.ttf'):
-                engine.register_font(str(font))
+                mapnik.FontEngine.register_font(str(font))
 
         self.scale_factor = scale_factor
 
